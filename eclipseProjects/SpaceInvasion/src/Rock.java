@@ -1,9 +1,13 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Rock extends GameObject {
 
+	BufferedImageLoader loader = new BufferedImageLoader();
+	private BufferedImage rockSprite = loader.loadImage("/rockDraft.png");
+	
 	public Rock(int x, int y, ID id) {
 		super(x, y, id);
 	}
@@ -13,8 +17,7 @@ public class Rock extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.black);
-		g.fillRect(x, y, 32, 32);
+		g.drawImage(rockSprite, x, y, null);
 	}
 
 	public Rectangle getBounds() {

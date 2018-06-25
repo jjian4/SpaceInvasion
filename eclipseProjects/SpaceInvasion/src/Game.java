@@ -16,6 +16,7 @@ public class Game extends Canvas implements Runnable {
 	private Camera camera;
 
 	private BufferedImage level = null;
+	private BufferedImage background = null;
 	
 	
 	public int ammo = 100;
@@ -33,6 +34,8 @@ public class Game extends Canvas implements Runnable {
 		
 		BufferedImageLoader loader = new BufferedImageLoader();
 		level = loader.loadImage("/spaceLevel.png");
+		
+		background = loader.loadImage("/starsDraft.png");
 		
 		loadLevel(level);
 		
@@ -113,13 +116,19 @@ public class Game extends Canvas implements Runnable {
 		Graphics2D g2d = (Graphics2D) g;
 		
 		///////////////////////////////////////
-		g.setColor(Color.red);
-		g.fillRect(0, 0, 1024, 768);
 		
 		g2d.translate(-camera.getX(), -camera.getY());
 		
+		//make the floor tiles
+		for(int x = 0; x < 1024*2; x+=32) {
+			for(int y = 0; y < 768*2; y+=32) {
+				g.drawImage(background, x, y, null);
+			}
+		}
+		
 		handler.render(g);
 		
+		g2d.translate(camera.getX(), camera.getY());
 		///////////////
 		g.dispose();
 		bs.show();

@@ -1,11 +1,17 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 
 public class Player extends GameObject {
 
 	Handler handler;
 	Game game;
+	
+	BufferedImageLoader loader = new BufferedImageLoader();
+	private BufferedImage playerSprite = loader.loadImage("/playerSprite.png");
+	
+
 	
 	public Player(int x, int y, ID id, Handler handler, Game game) {
 		super(x, y, id);
@@ -59,8 +65,7 @@ public class Player extends GameObject {
 	}
 	
 	public void render(Graphics g) {
-		g.setColor(Color.blue);
-		g.fillRect(x, y, 48, 48);
+		g.drawImage(playerSprite, x, y, null);
 	}
 
 	public Rectangle getBounds() {

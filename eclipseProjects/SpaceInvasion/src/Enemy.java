@@ -1,6 +1,7 @@
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Rectangle;
+import java.awt.image.BufferedImage;
 import java.util.Random;
 
 public class Enemy extends GameObject {
@@ -10,6 +11,10 @@ public class Enemy extends GameObject {
 	Random r = new Random();
 	int rand = 0;
 	int hp = 100;
+	
+	BufferedImageLoader loader = new BufferedImageLoader();
+	private BufferedImage enemySprite = loader.loadImage("/enemySprite.png");
+	
 	
 	public Enemy(int x, int y, ID id, Handler handler) {
 		super(x, y, id);
@@ -57,8 +62,7 @@ public class Enemy extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
-		g.fillRect(x, y, 32, 32);
+		g.drawImage(enemySprite, x, y, null);
 	}
 
 	public Rectangle getBounds() {
