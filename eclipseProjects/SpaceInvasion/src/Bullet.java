@@ -31,7 +31,7 @@ public class Bullet extends GameObject {
 	}
 
 	public void render(Graphics g) {
-		g.setColor(Color.yellow);
+		g.setColor(Color.blue);
 		g.fillOval(x, y, 8, 8);
 	}
 
