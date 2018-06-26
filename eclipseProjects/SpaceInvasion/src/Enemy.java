@@ -1,5 +1,6 @@
 import java.awt.Color;
 import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Rectangle;
 import java.awt.image.BufferedImage;
 import java.util.Random;
@@ -7,18 +8,28 @@ import java.util.Random;
 public class Enemy extends GameObject {
 
 	private Handler handler;
+	//Enemy has higher hp if it has forcefield
+	private boolean forceField;
 	
 	Random r = new Random();
-	int rand = 0;
-	int hp = 100;
+	private int rand = 0;
+	private int hp;
 	
 	BufferedImageLoader loader = new BufferedImageLoader();
 	private BufferedImage enemySprite = loader.loadImage("/enemySprite.png");
 	
 	
-	public Enemy(int x, int y, ID id, Handler handler) {
+	public Enemy(int x, int y, ID id, Handler handler, boolean forceField) {
 		super(x, y, id);
 		this.handler = handler;
+		this.forceField = forceField;
+		
+		if(forceField) {
+			hp = 200;
+		}
+		else {
+			hp = 100;
+		}
 	}
 
 	public void tick() {
@@ -63,6 +74,12 @@ public class Enemy extends GameObject {
 
 	public void render(Graphics g) {
 		g.drawImage(enemySprite, x, y, null);
+		//Remove forceField when hp drops to 100
+		if(forceField && hp > 100) {
+			Graphics2D g2d = (Graphics2D) g;
+			g.setColor(Color.red);
+			g2d.draw(getBounds());
+		}
 	}
 
 	public Rectangle getBounds() {

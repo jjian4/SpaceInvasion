@@ -76,7 +76,20 @@ public class Player extends GameObject {
 				}
 			}
 			
+			//Lose health when touching an enemy
+			if(tempObject.getId() == ID.Enemy) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					game.hp--;
+				}
+			}
 			
+			//Gain hp when touching health
+			if(tempObject.getId() == ID.Health) {
+				if(getBounds().intersects(tempObject.getBounds())) {
+					game.hp += 25;
+					handler.removeObject(tempObject);
+				}
+			}
 		}
 	}
 	

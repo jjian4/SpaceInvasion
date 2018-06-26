@@ -1,5 +1,6 @@
 import java.awt.Canvas;
 import java.awt.Color;
+import java.awt.Font;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.image.BufferStrategy;
@@ -18,8 +19,8 @@ public class Game extends Canvas implements Runnable {
 	private BufferedImage level = null;
 	private BufferedImage background = null;
 	
-	
 	public int ammo = 100;
+	public int hp = 100;
 	
 	//Constructor
 	public Game() {
@@ -129,6 +130,28 @@ public class Game extends Canvas implements Runnable {
 		handler.render(g);
 		
 		g2d.translate(camera.getX(), camera.getY());
+		
+		//Health bar
+		g.setColor(Color.gray);
+		g.fillRect(362, 10, 300, 32);
+		
+		g.setColor(Color.green);
+		if(hp > 100) {
+			g.fillRect(362, 10, 300, 32);
+			g.setColor(Color.yellow);
+			g.fillRect(662, 10, hp * 3 - 300, 32);
+		}
+		else
+			g.fillRect(362, 10, hp * 3, 32);
+			
+		g.setColor(Color.black);
+		g.drawRect(362, 10, 300, 32);
+		
+		//Ammo display
+		g.setColor(Color.white);
+		g.setFont(new Font("Impact", Font.PLAIN, 20));
+		g.drawString("Ammo: " + ammo, 362, 60);
+		
 		///////////////
 		g.dispose();
 		bs.show();
@@ -147,18 +170,23 @@ public class Game extends Canvas implements Runnable {
 				int green = (pixel >> 8) & 0xff;
 				int blue = (pixel) & 0xff;
 				
-				if(red == 255 && green == 0)
+				if(red == 255 && green == 0 && blue == 0)	//red pixel
 					handler.addObject(new Rock(x * 32, y * 32, ID.Rock));
 				
-				if(blue == 255 && green == 0)
+				if(red == 0 && blue == 255 && green == 0)	//blue pixel
 					handler.addObject(new Player(x * 32, y * 32, ID.Player, handler, this));
 				
-				if(green == 255 && blue == 0)
-					handler.addObject(new Enemy(x * 32, y * 32, ID.Enemy, handler ));
+				if(red == 0 && green == 255 && blue == 0)	//green pixel
+					handler.addObject(new Enemy(x * 32, y * 32, ID.Enemy, handler, false));
+				
+				if(red == 255 && green == 0 && blue == 255)	//purple pixel
+					handler.addObject(new Enemy(x * 32, y * 32, ID.Enemy, handler, true));
 
-				if(blue == 255 && green == 255) {
+				if(red == 0 && blue == 255 && green == 255) //cyan pixel
 					handler.addObject(new Crate(x * 32, y * 32, ID.Crate));
-				}
+				
+				if(red == 255 && green == 255 && blue == 0)	//yellow pixel
+					handler.addObject(new Health(x * 32, y * 32, ID.Health));
 
 			}
 		}
