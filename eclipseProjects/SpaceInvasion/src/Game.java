@@ -171,7 +171,13 @@ public class Game extends Canvas implements Runnable {
 				int blue = (pixel) & 0xff;
 				
 				if(red == 255 && green == 0 && blue == 0)	//red pixel
-					handler.addObject(new Rock(x * 32, y * 32, ID.Rock));
+					handler.addObject(new Bounds(x * 32, y * 32, ID.Bounds));
+
+				if(red == 100 && green == 100 && blue == 100)	//gray pixel
+					handler.addObject(new Rock(x * 32, y * 32, ID.Rock, false));
+				
+				if(red == 255 && green == 255 && blue == 255)	//white pixel
+					handler.addObject(new Rock(x * 32, y * 32, ID.Rock, true));
 				
 				if(red == 0 && blue == 255 && green == 0)	//blue pixel
 					handler.addObject(new Player(x * 32, y * 32, ID.Player, handler, this));

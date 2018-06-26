@@ -5,11 +5,17 @@ import java.awt.image.BufferedImage;
 
 public class Rock extends GameObject {
 
-	BufferedImageLoader loader = new BufferedImageLoader();
-	private BufferedImage rockSprite = loader.loadImage("/rockDraft.png");
+	//decides which sprite to use
+	private boolean large;
 	
-	public Rock(int x, int y, ID id) {
+	BufferedImageLoader loader = new BufferedImageLoader();
+	private BufferedImage rockSprite = loader.loadImage("/rockSprite.png");
+	private BufferedImage rockSpriteLarge = loader.loadImage("/rockSpriteLarge.png");
+	
+	public Rock(int x, int y, ID id, boolean large) {
 		super(x, y, id);
+		this.large = large;
+		
 	}
 
 	public void tick() {
@@ -17,11 +23,19 @@ public class Rock extends GameObject {
 	}
 
 	public void render(Graphics g) {
+		if(large) {
+			g.drawImage(rockSpriteLarge, x, y, null);
+		} else {
 		g.drawImage(rockSprite, x, y, null);
+		}
 	}
 
 	public Rectangle getBounds() {
-		return new Rectangle(x, y, 32, 32);
+		if(large) {
+			return new Rectangle(x, y, 128, 128);
+		} else {
+		return new Rectangle(x, y, 64, 64);
+		}
 	}
 
 }

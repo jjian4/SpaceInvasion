@@ -6,4 +6,5 @@ public enum ID {
 	Bullet(),
 	Enemy(),
 	Health(),
+	Bounds(),
 }

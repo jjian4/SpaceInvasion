@@ -38,11 +38,12 @@ public class Enemy extends GameObject {
 		
 		rand = r.nextInt(10);
 		
-		//If at a block, move in another direction
+		//If at a block, bound, or another enemy, move in another direction
 		for(int i = 0; i < handler.object.size(); i++) {
 			GameObject tempObject = handler.object.get(i);
 			
-			if(tempObject.getId() == ID.Rock) {
+			if(tempObject.getId() == ID.Rock || tempObject.getId() == ID.Bounds 
+					|| (tempObject.getId() == ID.Enemy && tempObject != this)) {
 				if(getBigBounds().intersects(tempObject.getBounds())) {
 					x += velX * -2;
 					y += velY * -2;

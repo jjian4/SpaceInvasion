@@ -60,8 +60,8 @@ public class Player extends GameObject {
 			
 			GameObject tempObject = handler.object.get(i);
 			
-			//Ensure that player cannot share the same coordinates as a block
-			if(tempObject.getId() == ID.Rock) {
+			//Ensure that player cannot share the same coordinates as a rock or bound
+			if(tempObject.getId() == ID.Rock || tempObject.getId() == ID.Bounds) {
 				if(getBounds().intersects(tempObject.getBounds())) {
 					x += velX * -1;
 					y += velY * -1;
