@@ -152,6 +152,19 @@ public class Game extends Canvas implements Runnable {
 		g.setFont(new Font("Impact", Font.PLAIN, 20));
 		g.drawString("Ammo: " + ammo, 362, 60);
 		
+		//Game over
+		if(hp <= 0) {
+			g.setColor(Color.red);
+			g.setFont(new Font("Impact", Font.PLAIN, 100));
+			g.drawString("G A M E     O V E R", 200, 400);
+			//Remove player
+			for(int i = 0; i < handler.object.size(); i++) {
+				if(handler.object.get(i).getId() == ID.Player) {
+					handler.removeObject(handler.object.get(i));
+				}
+			}
+		}
+		
 		///////////////
 		g.dispose();
 		bs.show();

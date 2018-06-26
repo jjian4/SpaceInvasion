@@ -25,7 +25,7 @@ public class Enemy extends GameObject {
 		this.forceField = forceField;
 		
 		if(forceField) {
-			hp = 200;
+			hp = 300;
 		}
 		else {
 			hp = 100;
@@ -45,10 +45,10 @@ public class Enemy extends GameObject {
 			if(tempObject.getId() == ID.Rock || tempObject.getId() == ID.Bounds 
 					|| (tempObject.getId() == ID.Enemy && tempObject != this)) {
 				if(getBigBounds().intersects(tempObject.getBounds())) {
-					x += velX * -2;
-					y += velY * -2;
-					velX *= -1;
-					velY *= -1;
+					x += velX * -1;
+					y += velY * -1;
+					velX *= -2;
+					velY *= -2;
 				}
 			}
 			
@@ -60,10 +60,10 @@ public class Enemy extends GameObject {
 				}
 			}
 			
-			//Move randomly
+			//Move pseudo-randomly, vel varies between -4 and 4
 			else if(rand == 0) {
-				velX = (r.nextInt(4 - -4) + -4);
-				velY = (r.nextInt(4 - -4) + -4);
+				velX = (r.nextInt(9) -4);
+				velY = (r.nextInt(9) -4);
 			}
 		}
 		
